@@ -79,7 +79,7 @@ public class TipoPrimitivo implements Tipo {
      * @see #BOOLEANO
      * @see #STRING
      */
-     public Id getTipo(){
+    public Id getTipo(){
 
         Id resposta = new Id("undefined");
         switch(tipo) {
@@ -100,7 +100,7 @@ public class TipoPrimitivo implements Tipo {
      * Indica se esta expressao &eacute; inteira.
      *
      * @return <code>true</code> se esta expressao for inteira;
-     *          <code>false</code> caso contrario.
+     * <code>false</code> caso contrario.
      */
     public boolean eInteiro() {
         return tipo == INTEIRO;
@@ -110,7 +110,7 @@ public class TipoPrimitivo implements Tipo {
      * Indica se esta expressao &eacute; booleana.
      *
      * @return <code>true</code> se esta expressao for booleana;
-     *          <code>false</code> caso contrario.
+     * <code>false</code> caso contrario.
      */
     public boolean eBooleano() {
         return tipo == BOOLEANO;
@@ -120,27 +120,27 @@ public class TipoPrimitivo implements Tipo {
      * Indica se esta expressao &eacute; string.
      *
      * @return <code>true</code> se esta expressao for string;
-     *          <code>false</code> caso contrario.
+     * <code>false</code> caso contrario.
      */
     public boolean eString() {
         return tipo == STRING;
     }
 
     /**
-    *
-    * Por questao de simplificacao, este m�todo foi implementado para unificar TipoPrimitivo e
-    * TipoClasse em uma �nica interface: Tipo
-    *
-    */
+     *
+     * Por questao de simplificacao, este mtodo foi implementado para unificar TipoPrimitivo e
+     * TipoClasse em uma nica interface: Tipo
+     *
+     */
     public boolean eValido(AmbienteCompilacaoOO1 ambiente){
         return tipo == STRING || tipo == BOOLEANO || tipo == INTEIRO;
     }
 
     /**
-     * Indica se esta expressao &eacute; um tipo v�lido.
+     * Indica se esta expressao &eacute; um tipo vlido.
      *
-     * @return <code>true</code> se esta expressao for um tipo v�lido;
-     *          <code>false</code> caso contrario.
+     * @return <code>true</code> se esta expressao for um tipo vlido;
+     * <code>false</code> caso contrario.
      */
     public boolean eValido() {
         return tipo == STRING || tipo == BOOLEANO || tipo == INTEIRO;
@@ -150,7 +150,7 @@ public class TipoPrimitivo implements Tipo {
      * Compara este tipo com o tipo dado.
      *
      * @return <code>true</code> se se tratarem do mesmo tipo;
-     *          <code>false</code> caso contrario.
+     * <code>false</code> caso contrario.
      */
     public boolean equals(Object obj) {
         if (obj instanceof TipoPrimitivo) {
@@ -159,8 +159,8 @@ public class TipoPrimitivo implements Tipo {
         return false;
     }
     /**
-     * Retorna a descri��o textual do tipo.
-     * @return  a descri��o textual do tipo.
+     * Retorna a descrio textual do tipo.
+     * @return  a descrio textual do tipo.
      */
     public String toString() {
         String resposta = "undefined";
@@ -177,5 +177,25 @@ public class TipoPrimitivo implements Tipo {
         }
         return resposta;
     }
+
+    @Override
+    public boolean aceitaNulo() {
+        // Tipos Primitivos, por padrão, não aceitam null.
+        return false;
+    }
+
+    // --- MÉTODOS ADICIONADOS PARA SUPORTE AO NULL SAFETY ---
+    @Override
+    public Tipo comoNullable() {
+        // Envolve o tipo primitivo (não-nullable) em um TipoNullable
+        return new TipoNullable(this);
+    }
+
+    @Override
+    public Tipo comoNaoNullable() {
+        // O TipoPrimitivo por si só já é a versão não-nullable, então retorna ele mesmo
+        return this;
+    }
+    // -------------------------------------------------------
 
 }

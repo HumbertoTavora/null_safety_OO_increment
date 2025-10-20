@@ -8,77 +8,104 @@ import loo2.plp.orientadaObjetos1.expressao.Expressao;
 import loo2.plp.orientadaObjetos1.expressao.leftExpression.AcessoAtributo;
 import loo2.plp.orientadaObjetos1.expressao.leftExpression.Id;
 import loo2.plp.orientadaObjetos1.expressao.leftExpression.LeftExpression;
+import loo2.plp.orientadaObjetos1.expressao.valor.Valor;
 import loo2.plp.orientadaObjetos1.expressao.valor.ValorRef;
+import loo2.plp.orientadaObjetos1.expressao.valor.ValorNull; // Adicionado para checagem de ValorNull
 import loo2.plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
 import loo2.plp.orientadaObjetos1.memoria.AmbienteExecucaoOO1;
 import loo2.plp.orientadaObjetos1.memoria.Objeto;
+import loo2.plp.orientadaObjetos1.util.Tipo;
 import loo2.plp.orientadaObjetos1.util.TipoClasse;
 /**
- * Classe que representa um comando de atribui��o.
+ * Classe que representa um comando de atribuio.
  */
 public class Atribuicao implements Comando {
-	/**
-	 * Lado esquerdo do comando de atribui��o.
-	 */
+    /**
+     * Lado esquerdo do comando de atribuio.
+     */
     protected LeftExpression av;
-    
-	/**
-	 * Express�o cujo valor ser� atribu�do ao lado esquerdo.
-	 */
+
+    /**
+     * Expresso cujo valor ser atribudo ao lado esquerdo.
+     */
     protected Expressao expressao;
-    
-	/**
-	 * Construtor.
-	 * @param av Lado esquerdo
-	 * @param expressao Express�o cujo valor ser� atribu�do ao lado esquerdo.
-	 */
+
+    /**
+     * Construtor.
+     * @param av Lado esquerdo
+     * @param expressao Expresso cujo valor ser atribudo ao lado esquerdo.
+     */
     public Atribuicao(LeftExpression av, Expressao expressao){
         this.av = av;
         this.expressao = expressao;
     }
 
     /**
-     * Executa  a atribui��o.
+     * Executa  a atribuio.
      *
      * @param ambiente o ambiente que contem o mapeamento entre identificadores
-     *  e valores.
-     * @return o ambiente modificado pela execu��o da atribui��o.
-     * @throws ClasseNaoDeclaradaException 
+     * e valores.
+     * @return o ambiente modificado pela execuo da atribuio.
+     * @throws ClasseNaoDeclaradaException
      *
      */
     public AmbienteExecucaoOO1 executar(AmbienteExecucaoOO1 ambiente)
-        throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException,
-               ObjetoNaoDeclaradoException, ClasseNaoDeclaradaException {
+            throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException,
+            ObjetoNaoDeclaradoException, ClasseNaoDeclaradaException {
 
-        Id idVariavel =  av.getId();
-        if ( av instanceof AcessoAtributo){
-            
-        	// se for acesso a atributo, tem de alterar o ambiente do objeto!
-            Expressao expAV = ((AcessoAtributo)av).getExpressaoObjeto();
-            ValorRef referencia = (ValorRef)expAV.avaliar(ambiente);
+        // Avalia o valor que será atribuído
+        Valor valorAtribuido = expressao.avaliar(ambiente);
+
+        // A checagem de tipos (null safety) deve ser feita em checaTipo.
+        // Se quisermos lançar uma exceção de execução se a checagem de tipo falhou (o que não deveria acontecer se checaTipo foi chamado),
+        // precisaríamos de uma referência ao ambiente de compilação ou do tipo.
+        // Vamos remover a checagem de tipo do executar, pois ela pertence ao checaTipo.
+
+        /*
+        // ORIGINALMENTE CAUSAVA O ERRO:
+        // Verifica se é nulo
+        boolean valorEhNulo = (valorAtribuido == null || valorAtribuido instanceof ValorNull);
+
+        // Recupera o tipo da variável destino (ERRO AQUI: Cast de AmbienteExecucao para AmbienteCompilacao)
+        // Tipo tipoVariavel = av.getTipo((AmbienteCompilacaoOO1) ambiente);
+
+        // Se for nulo e o tipo não aceita null, lança exceção
+        // if (valorEhNulo && !tipoVariavel.aceitaNulo()) {
+        //     System.out.println(
+        //             "Tentativa de atribuir 'null' a um tipo não-null: " + tipoVariavel
+        //     );
+        // }
+        */
+
+        // Executa a atribuição normalmente
+        Id idVariavel = av.getId();
+        if (av instanceof AcessoAtributo) {
+            Expressao expAV = ((AcessoAtributo) av).getExpressaoObjeto();
+            ValorRef referencia = (ValorRef) expAV.avaliar(ambiente);
             Objeto obj = ambiente.getObjeto(referencia);
-            obj.changeAtributo(idVariavel, expressao.avaliar(ambiente));
+            obj.changeAtributo(idVariavel, valorAtribuido);
+        } else {
+            ambiente.changeValor(idVariavel, valorAtribuido);
         }
-        else
-            ambiente.changeValor(idVariavel, expressao.avaliar(ambiente));
+
         return ambiente;
     }
 
     /**
-     * Um comando de atribui��o est� bem tipado, se o tipo do identificador �
-     * o mesmo da express�o. O tipo de um identificador � determinado pelo
-     * tipo da express�o que o inicializou (na declara��o).
+     * Um comando de atribuio est bem tipado, se o tipo do identificador
+     * o mesmo da expresso. O tipo de um identificador  determinado pelo
+     * tipo da expresso que o inicializou (na declarao).
      *
      * @param ambiente o ambiente que contem o mapeamento entre identificadores
-     *  e valores.
-     * @return <code>true</code> se os tipos da atribui��o s�o v�lidos;
-     *          <code>false</code> caso contrario.
+     * e valores.
+     * @return <code>true</code> se os tipos da atribuio so vlidos;
+     * <code>false</code> caso contrario.
      *
      */
     public boolean checaTipo(AmbienteCompilacaoOO1 ambiente)
-        throws VariavelNaoDeclaradaException, ClasseNaoDeclaradaException {
+            throws VariavelNaoDeclaradaException, ClasseNaoDeclaradaException {
         return expressao.checaTipo(ambiente) &&
-              (av.getTipo(ambiente).equals(expressao.getTipo(ambiente))
-               || expressao.getTipo(ambiente).equals(TipoClasse.TIPO_NULL));
+                (av.getTipo(ambiente).equals(expressao.getTipo(ambiente))
+                        || expressao.getTipo(ambiente).equals(TipoClasse.TIPO_NULL));
     }
 }
