@@ -129,15 +129,15 @@ public class Imp1Parser implements Imp1ParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-static final public li1.plp.imperative1.command.IO PIO() throws ParseException {
-    li1.plp.imperative1.command.IO retorno;
+  static final public IO PIO() throws ParseException {
+        IO retorno;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case READ:
-            retorno = PRead();
-            break;
-        case WRITE:
-            retorno = PWrite();
-            break;
+    case READ:
+      retorno = PRead();
+      break;
+    case WRITE:
+      retorno = PWrite();
+      break;
     default:
       jj_la1[1] = jj_gen;
       jj_consume_token(-1);
