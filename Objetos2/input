@@ -1,28 +1,40 @@
 {
-    classe Eletrodomestico{
-    	boolean ligado = false,
-        	int voltagem = 220;
-        
-        	Eletrodomestico(boolean ligado, int voltagem){
-         		this.ligado := ligado;
-            		this.voltagem := voltagem
-    	},            
-    	proc ligar(){
-    		this.ligado := true
-     	},
-     	proc desligar(){
-            		this.ligado := false
-     	},
-		proc imprimeEstado(){
-           		write("Ligado: " ++ this.ligado);
-            		write("Voltagem: " ++ this.voltagem)
-     	}            
-     };    
-    {
-        	Eletrodomestico eletro := new Eletrodomestico(false,110);
-        	eletro.imprimeEstado();
-        	eletro.ligar();
-        	eletro.imprimeEstado()
-     }
+	classe Pessoa {
+		string nome = "Maria",
+		int idade = 30;
+
+		Pessoa(string nome, int idade) {
+			this.nome := nome;
+			this.idade := idade
+		},
+		proc imprimeNome() {
+			write(this.nome)
+		}
+	},
+	classe Livro {
+		string titulo = "PLP",
+		Pessoa autor = null;
+
+		Livro(string titulo, Pessoa autor) {
+			this.titulo := titulo;
+			this.autor := autor
+		},
+		proc imprimeAutor() {
+			write(this.autor?.nome ?: "Autor desconhecido")
+		}
+	};
+	{
+		Pessoa p := new Pessoa("Joao", 21);
+		Livro l1 := new Livro("Livro de Java", p);
+		Livro l2 := new Livro("Livro sem autor", null);
+
+		-- Safe call to an attribute of a non-null author
+		write(l1.autor?.nome);      -- deve imprimir "Joao"
+		-- Safe call to a null author
+		write(l2.autor?.nome);      -- deve imprimir null
+		-- Elvis fallback (non-null)
+		write(l1.autor?.nome ?: "Anonimo");   -- deve imprimir "Joao"
+		-- Elvis fallback (null)
+		write(l2.autor?.nome ?: "Anonimo");   -- deve imprimir "Anonimo"
+	}
 }
-     	

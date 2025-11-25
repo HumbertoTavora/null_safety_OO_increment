@@ -420,8 +420,8 @@ public class OO1Parser implements OO1ParserConstants {
 /**
  * IO ::= "write" "(" Expressao ")" | "read" "(" Id ")"
  **/
-  final public loo1.plp.orientadaObjetos1.comando.IO PIO() throws ParseException {
-  loo1.plp.orientadaObjetos1.comando.IO retorno;
+  final public IO PIO() throws ParseException {
+  IO retorno;
     if (jj_2_13(2147483647)) {
       retorno = PWrite();
     } else {

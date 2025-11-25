@@ -14,6 +14,7 @@ import loo2.plp.orientadaObjetos1.memoria.DefClasse;
 import loo2.plp.orientadaObjetos1.memoria.Objeto;
 import loo2.plp.orientadaObjetos1.util.Tipo;
 import loo2.plp.orientadaObjetos1.util.TipoClasse;
+import loo2.plp.orientadaObjetos1.expressao.valor.ValorNull;
 
 /**
  * Classe que representa um acesso de atributo a partir de uma expressao.
@@ -23,6 +24,10 @@ public class AcessoAtributoId extends AcessoAtributo{
      * Expressao que acessa o atributo.
      */
     protected LeftExpression av;
+    /**
+     * Indica se o tipo da expressão é nullable (armazenado durante checaTipo)
+     */
+    protected boolean tipoNullable = false;
     /**
      * Construtor.
      * @param av Expressao do lado esquerdo, que acessa o atributo.
@@ -69,9 +74,20 @@ public class AcessoAtributoId extends AcessoAtributo{
         if(av.checaTipo(ambiente)) {
             try{
                 Tipo t = av.getTipo(ambiente);
-                DefClasse defClasse = ambiente.getDefClasse(((TipoClasse)t).getTipo());
-                defClasse.getTipoAtributo(super.getId());
-                resposta = true;
+                // Se o tipo for nullable, permitir acesso (retorna null se o objeto for null)
+                if (t instanceof loo2.plp.orientadaObjetos2.util.TipoNullable) {
+                    loo2.plp.orientadaObjetos2.util.TipoNullable tipoNullable = (loo2.plp.orientadaObjetos2.util.TipoNullable) t;
+                    TipoClasse tipoBase = tipoNullable.getTipoBase();
+                    DefClasse defClasse = ambiente.getDefClasse(tipoBase.getTipo());
+                    defClasse.getTipoAtributo(super.getId());
+                    this.tipoNullable = true; // Marcar que o tipo é nullable
+                    resposta = true;
+                } else if (t instanceof TipoClasse) {
+                    DefClasse defClasse = ambiente.getDefClasse(((TipoClasse)t).getTipo());
+                    defClasse.getTipoAtributo(super.getId());
+                    this.tipoNullable = false; // Marcar que o tipo NÃO é nullable
+                    resposta = true;
+                }
             }
             catch(VariavelNaoDeclaradaException atrib){
                 resposta = false;
@@ -95,7 +111,22 @@ public class AcessoAtributoId extends AcessoAtributo{
           //Logo abaixo obtenho a definicao da Classe (seus m�todos e atributos).
           //av.getTipo devera retornar uma instancia de TipoClasse e assim, TipoClasse.getTipo()
           //retorna o id (contendo o nome da classe) associado ao tipo dela
-        Id nomeClasse = ((TipoClasse)av.getTipo(ambiente)).getTipo();
+        Tipo tipoObjeto = av.getTipo(ambiente);
+        TipoClasse tipoClasse = null;
+        
+        // Se o tipo for nullable, usar o tipo base
+        if (tipoObjeto instanceof loo2.plp.orientadaObjetos2.util.TipoNullable) {
+            loo2.plp.orientadaObjetos2.util.TipoNullable tipoNullable = (loo2.plp.orientadaObjetos2.util.TipoNullable) tipoObjeto;
+            tipoClasse = tipoNullable.getTipoBase();
+        } else if (tipoObjeto instanceof TipoClasse) {
+            tipoClasse = (TipoClasse) tipoObjeto;
+        }
+        
+        if (tipoClasse == null) {
+            throw new ClasseNaoDeclaradaException(new Id("TipoInvalido"));
+        }
+        
+        Id nomeClasse = tipoClasse.getTipo();
         DefClasse defClasse = ambiente.getDefClasse(nomeClasse);
         Tipo tipoAtr = defClasse.getTipoAtributo(super.getId());
         //Em seguida retorno o tipo do atributo, caso ele esteja definido na classe.
@@ -121,7 +152,22 @@ public class AcessoAtributoId extends AcessoAtributo{
                ObjetoNaoDeclaradoException, ClasseNaoDeclaradaException {
         
     	// Pegando o objeto no ambiente
-        ValorRef referencia = (ValorRef) av.avaliar(ambiente);
+        Valor valor = av.avaliar(ambiente);
+        
+        // Se o valor for null, verificar se o tipo é nullable
+        // Se for nullable, retornar null; se não for, lançar exceção
+        if (valor instanceof ValorNull) {
+            if (tipoNullable) {
+                // Tipo nullable: permitir acesso e retornar null
+                return new ValorNull();
+            } else {
+                // Tipo não-nullable: lançar exceção de null pointer
+                throw new NullPointerException("Cannot access attribute on null value. Use nullable type (Tipo?) or safe call operator (?.)");
+            }
+        }
+        
+        // Se não for null, proceder normalmente
+        ValorRef referencia = (ValorRef) valor;
         Objeto objeto = ambiente.getObjeto(referencia);
         
         // Recuperando o mapeamento de valores do objeto (atributos do objeto)

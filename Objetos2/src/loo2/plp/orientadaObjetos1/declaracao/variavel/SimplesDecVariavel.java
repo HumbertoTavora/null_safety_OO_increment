@@ -11,6 +11,7 @@ import loo2.plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
 import loo2.plp.orientadaObjetos1.memoria.AmbienteExecucaoOO1;
 import loo2.plp.orientadaObjetos1.util.Tipo;
 import loo2.plp.orientadaObjetos1.util.TipoClasse;
+import loo2.plp.orientadaObjetos2.util.TipoNullable;
 
 /**
  * Classe que representa uma declara�ao de vari�vel simples.
@@ -83,12 +84,20 @@ public class SimplesDecVariavel implements DecVariavel{
                ClasseNaoDeclaradaException {
         boolean resposta = false;
         if ( expressao.checaTipo(ambiente) ) {
-            if( tipo instanceof TipoClasse) {
-                resposta = expressao.getTipo(ambiente).equals(TipoClasse.TIPO_NULL) ||
-                           expressao.getTipo(ambiente).equals(tipo);
+            Tipo tipoExpressao = expressao.getTipo(ambiente);
+            if( tipo instanceof TipoNullable) {
+                // Tipo nullable aceita null ou o tipo base
+                TipoNullable tipoNullable = (TipoNullable) tipo;
+                resposta = tipoExpressao.equals(TipoClasse.TIPO_NULL) ||
+                           tipoNullable.eCompativel(tipoExpressao);
+            }
+            else if( tipo instanceof TipoClasse) {
+                // Tipos não-nullable (TipoClasse) NÃO aceitam null
+                // Apenas tipos nullable aceitam null
+                resposta = tipoExpressao.equals(tipo);
             }
             else {
-                resposta = expressao.getTipo(ambiente).equals(tipo);
+                resposta = tipoExpressao.equals(tipo);
             }
         }
         if(resposta) {

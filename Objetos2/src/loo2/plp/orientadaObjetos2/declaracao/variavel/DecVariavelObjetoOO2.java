@@ -18,6 +18,7 @@ import loo2.plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
 import loo2.plp.orientadaObjetos1.memoria.AmbienteExecucaoOO1;
 import loo2.plp.orientadaObjetos1.util.Tipo;
 import loo2.plp.orientadaObjetos1.util.TipoClasse;
+import loo2.plp.orientadaObjetos2.util.TipoNullable;
 import loo2.plp.orientadaObjetos2.comando.NewOO2;
 import loo2.plp.orientadaObjetos2.memoria.AmbienteCompilacaoOO2;
 import loo2.plp.orientadaObjetos2.memoria.AmbienteExecucaoOO2;
@@ -57,10 +58,20 @@ public class DecVariavelObjetoOO2 extends DecVariavelObjeto {
 		boolean booleanSuper = false;
 		Tipo tpClasse = new TipoClasse(this.getClasse());
 		if (tpClasse.eValido(ambiente) && this.getTipo().eValido(ambiente)) {
-			booleanSuper = tpClasse.equals(this.getTipo()) ||
-							HierarquiaUtils.ehSubTipo(tpClasse, this.getTipo(),
-														(AmbienteCompilacaoOO2) ambiente);
-			ambiente.map(this.getObjeto(), tpClasse);
+			// Se o tipo declarado é nullable, aceita o tipo base ou null
+			if (this.getTipo() instanceof TipoNullable) {
+				TipoNullable tipoNullable = (TipoNullable) this.getTipo();
+				booleanSuper = tpClasse.equals(tipoNullable.getTipoBase()) ||
+								HierarquiaUtils.ehSubTipo(tpClasse, tipoNullable.getTipoBase(),
+															(AmbienteCompilacaoOO2) ambiente);
+				// Mapeia como tipo nullable
+				ambiente.map(this.getObjeto(), this.getTipo());
+			} else {
+				booleanSuper = tpClasse.equals(this.getTipo()) ||
+								HierarquiaUtils.ehSubTipo(tpClasse, this.getTipo(),
+															(AmbienteCompilacaoOO2) ambiente);
+				ambiente.map(this.getObjeto(), tpClasse);
+			}
 		}
 		
 		Tipo tipoClasse = getObjeto().getTipo(ambiente);
