@@ -63,6 +63,7 @@ import loo2.plp.orientadaObjetos2.memoria.ContextoExecucaoOO2;
 import loo2.plp.orientadaObjetos2.comando.*;
 import loo2.plp.orientadaObjetos2.expressao.leftExpression.*;
 import loo2.plp.orientadaObjetos2.expressao.binaria.ExpElvis;
+import loo2.plp.orientadaObjetos2.expressao.ExpNew;
 import loo2.plp.orientadaObjetos2.declaracao.variavel.DecVariavelObjetoOO2;
 import loo2.plp.orientadaObjetos2.util.TipoNullable;
 
@@ -711,11 +712,13 @@ Expressao PExpressao() :
 }
 
 /**
- * ExpPrimaria ::= Valor | LeftExpression | this | "("Expressao")"
+ * ExpPrimaria ::= Valor | LeftExpression | this | "("Expressao")" | "new" Id "(" [ListaExpressao] ")"
  **/
 Expressao PExpPrimaria() :
 {
   Expressao retorno;
+  Id idClasse;
+  ListaExpressao parametros = null;
 }
 {
   (
@@ -725,10 +728,32 @@ Expressao PExpPrimaria() :
     retorno = PThis()
   | LOOKAHEAD(< LPAREN > PExpressao() < RPAREN >)
     < LPAREN > retorno = PExpressao() < RPAREN >
+  | LOOKAHEAD(< NEW > PId() < LPAREN >)
+    retorno = PExpNew()
   | retorno = PValor()
   )
   {
     return retorno;
+  }
+}
+
+/**
+ * ExpNew ::= "new" Id "(" [ListaExpressao] ")"
+ **/
+Expressao PExpNew() :
+{
+  Id idClasse;
+  ListaExpressao parametros = null;
+}
+{
+  < NEW > idClasse = PId() < LPAREN >
+  (
+    parametros = PListaExpressao()
+  | { parametros = new ListaExpressao(); }
+  )
+  < RPAREN >
+  {
+    return new ExpNew(idClasse, parametros);
   }
 }
 

@@ -79,6 +79,7 @@ loo2\plp\orientadaObjetos2\parser\OO2ParserConstants.class
 loo2\plp\orientadaObjetos2\declaracao\ConstrutorNaoDeclaradoException.class
 loo2\plp\orientadaObjetos2\declaracao\variavel\DecVariavelObjetoOO2.class
 loo2\plp\imperative2\util\TipoProcedimento.class
+loo2\plp\orientadaObjetos2\expressao\ExpNew.class
 loo2\plp\orientadaObjetos2\comando\ChamadaMetodoSafeCall.class
 loo2\plp\orientadaObjetos1\expressao\Expressao.class
 loo2\plp\orientadaObjetos1\declaracao\classe\DecClasseSimples.class

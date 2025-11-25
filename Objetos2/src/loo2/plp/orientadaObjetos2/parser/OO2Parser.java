@@ -57,6 +57,7 @@ import loo2.plp.orientadaObjetos2.memoria.ContextoExecucaoOO2;
 import loo2.plp.orientadaObjetos2.comando.*;
 import loo2.plp.orientadaObjetos2.expressao.leftExpression.*;
 import loo2.plp.orientadaObjetos2.expressao.binaria.ExpElvis;
+import loo2.plp.orientadaObjetos2.expressao.ExpNew;
 import loo2.plp.orientadaObjetos2.declaracao.variavel.DecVariavelObjetoOO2;
 import loo2.plp.orientadaObjetos2.util.TipoNullable;
 
@@ -450,6 +451,7 @@ public class OO2Parser implements OO2ParserConstants {
       case LENGTH:
       case TRUE:
       case FALSE:
+      case NEW:
       case THIS:
       case NULL:
       case INTEGER_LITERAL:
@@ -605,10 +607,12 @@ public class OO2Parser implements OO2ParserConstants {
   }
 
 /**
- * ExpPrimaria ::= Valor | LeftExpression | this | "("Expressao")"
+ * ExpPrimaria ::= Valor | LeftExpression | this | "("Expressao")" | "new" Id "(" [ListaExpressao] ")"
  **/
   final public Expressao PExpPrimaria() throws ParseException {
   Expressao retorno;
+  Id idClasse;
+  ListaExpressao parametros = null;
     if (jj_2_19(2147483647)) {
       retorno = PLeftExpression();
     } else if (jj_2_20(2147483647)) {
@@ -617,6 +621,8 @@ public class OO2Parser implements OO2ParserConstants {
       jj_consume_token(LPAREN);
       retorno = PExpressao();
       jj_consume_token(RPAREN);
+    } else if (jj_2_22(2147483647)) {
+      retorno = PExpNew();
     } else {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case TRUE:
@@ -637,15 +643,48 @@ public class OO2Parser implements OO2ParserConstants {
   }
 
 /**
+ * ExpNew ::= "new" Id "(" [ListaExpressao] ")"
+ **/
+  final public Expressao PExpNew() throws ParseException {
+  Id idClasse;
+  ListaExpressao parametros = null;
+    jj_consume_token(NEW);
+    idClasse = PId();
+    jj_consume_token(LPAREN);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case NOT:
+    case LENGTH:
+    case TRUE:
+    case FALSE:
+    case NEW:
+    case THIS:
+    case NULL:
+    case INTEGER_LITERAL:
+    case STRING_LITERAL:
+    case IDENTIFIER:
+    case LPAREN:
+    case MINUS:
+      parametros = PListaExpressao();
+      break;
+    default:
+      jj_la1[9] = jj_gen;
+      parametros = new ListaExpressao();
+    }
+    jj_consume_token(RPAREN);
+    {if (true) return new ExpNew(idClasse, parametros);}
+    throw new Error("Missing return statement in function");
+  }
+
+/**
  * Valor ::= ValorInteiro | ValorNull  | ValorBooleano | ValorString
  **/
   final public Valor PValor() throws ParseException {
   Valor retorno;
-    if (jj_2_22(2147483647)) {
+    if (jj_2_23(2147483647)) {
       retorno = PValorNull();
-    } else if (jj_2_23(2147483647)) {
-      retorno = PValorInteiro();
     } else if (jj_2_24(2147483647)) {
+      retorno = PValorInteiro();
+    } else if (jj_2_25(2147483647)) {
       retorno = PValorBooleano();
     } else {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -653,7 +692,7 @@ public class OO2Parser implements OO2ParserConstants {
         retorno = PValorString();
         break;
       default:
-        jj_la1[9] = jj_gen;
+        jj_la1[10] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -685,7 +724,7 @@ public class OO2Parser implements OO2ParserConstants {
  * ... ValorBooleano
  **/
   final public Valor PValorBooleano() throws ParseException {
-    if (jj_2_25(2147483647)) {
+    if (jj_2_26(2147483647)) {
       jj_consume_token(FALSE);
     {if (true) return new ValorBooleano(false);}
     } else {
@@ -695,7 +734,7 @@ public class OO2Parser implements OO2ParserConstants {
     {if (true) return new ValorBooleano(true);}
         break;
       default:
-        jj_la1[10] = jj_gen;
+        jj_la1[11] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -733,6 +772,7 @@ public class OO2Parser implements OO2ParserConstants {
       break;
     case TRUE:
     case FALSE:
+    case NEW:
     case THIS:
     case NULL:
     case INTEGER_LITERAL:
@@ -742,7 +782,7 @@ public class OO2Parser implements OO2ParserConstants {
       retorno = PExpPrimaria();
       break;
     default:
-      jj_la1[11] = jj_gen;
+      jj_la1[12] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -802,7 +842,7 @@ public class OO2Parser implements OO2ParserConstants {
         ;
         break;
       default:
-        jj_la1[12] = jj_gen;
+        jj_la1[13] = jj_gen;
         break label_1;
       }
       jj_consume_token(EQ);
@@ -826,7 +866,7 @@ public class OO2Parser implements OO2ParserConstants {
         ;
         break;
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[14] = jj_gen;
         break label_2;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -851,7 +891,7 @@ public class OO2Parser implements OO2ParserConstants {
         retorno = new ExpSoma(retorno, param2);
         break;
       default:
-        jj_la1[14] = jj_gen;
+        jj_la1[15] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -870,7 +910,7 @@ public class OO2Parser implements OO2ParserConstants {
         ;
         break;
       default:
-        jj_la1[15] = jj_gen;
+        jj_la1[16] = jj_gen;
         break label_3;
       }
       jj_consume_token(AND);
@@ -895,17 +935,17 @@ public class OO2Parser implements OO2ParserConstants {
  **/
   final public LeftExpression PLeftExpression() throws ParseException {
   LeftExpression retorno;
-    if (jj_2_26(2147483647)) {
-      retorno = PAcessoAtributo();
-    } else if (jj_2_27(2147483647)) {
+    if (jj_2_27(2147483647)) {
       retorno = PAcessoAtributo();
     } else if (jj_2_28(2147483647)) {
-      retorno = PAcessoAtributoId();
+      retorno = PAcessoAtributo();
     } else if (jj_2_29(2147483647)) {
-      retorno = PAcessoAtributoThis();
+      retorno = PAcessoAtributoId();
     } else if (jj_2_30(2147483647)) {
-      retorno = PAcessoAtributoSafeCall();
+      retorno = PAcessoAtributoThis();
     } else if (jj_2_31(2147483647)) {
+      retorno = PAcessoAtributoSafeCall();
+    } else if (jj_2_32(2147483647)) {
       retorno = PId();
     } else {
       jj_consume_token(-1);
@@ -932,17 +972,17 @@ public class OO2Parser implements OO2ParserConstants {
   AcessoAtributo retorno;
   AcessoAtributo base;
   Id id;
-    if (jj_2_32(2147483647)) {
+    if (jj_2_33(2147483647)) {
       base = PAcessoAtributoThis();
       jj_consume_token(SAFE_DOT);
       id = PId();
       retorno = new AcessoAtributoSafeCall(base, id);
-    } else if (jj_2_33(2147483647)) {
+    } else if (jj_2_34(2147483647)) {
       base = PAcessoAtributoId();
       jj_consume_token(SAFE_DOT);
       id = PId();
       retorno = new AcessoAtributoSafeCall(base, id);
-    } else if (jj_2_34(2147483647)) {
+    } else if (jj_2_35(2147483647)) {
       LeftExpression av;
       Id id1;
       Id id2;
@@ -955,11 +995,11 @@ public class OO2Parser implements OO2ParserConstants {
       id2 = PId();
       AcessoAtributoIdOO2 temp = new AcessoAtributoIdOO2(av, id1);
       retorno = new AcessoAtributoSafeCall(temp, id2);
-    } else if (jj_2_35(2147483647)) {
-      retorno = PAcessoAtributoThis();
     } else if (jj_2_36(2147483647)) {
-      retorno = PAcessoAtributoId();
+      retorno = PAcessoAtributoThis();
     } else if (jj_2_37(2147483647)) {
+      retorno = PAcessoAtributoId();
+    } else if (jj_2_38(2147483647)) {
       retorno = PAcessoAtributoSafeCall();
     } else {
       jj_consume_token(-1);
@@ -975,7 +1015,7 @@ public class OO2Parser implements OO2ParserConstants {
   final public AcessoAtributoThisOO2 PAcessoAtributoThis() throws ParseException {
   This t;
   Id id;
-    if (jj_2_38(2147483647)) {
+    if (jj_2_39(2147483647)) {
       jj_consume_token(LPAREN);
       t = PThis();
       jj_consume_token(RPAREN);
@@ -989,7 +1029,7 @@ public class OO2Parser implements OO2ParserConstants {
         id = PId();
         break;
       default:
-        jj_la1[16] = jj_gen;
+        jj_la1[17] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1004,7 +1044,7 @@ public class OO2Parser implements OO2ParserConstants {
   final public AcessoAtributoIdOO2 PAcessoAtributoId() throws ParseException {
   LeftExpression av;
   Id id;
-    if (jj_2_39(2147483647)) {
+    if (jj_2_40(2147483647)) {
       jj_consume_token(LPAREN);
       av = PLeftExpression();
       jj_consume_token(RPAREN);
@@ -1014,7 +1054,7 @@ public class OO2Parser implements OO2ParserConstants {
         av = PId();
         break;
       default:
-        jj_la1[17] = jj_gen;
+        jj_la1[18] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1035,17 +1075,17 @@ public class OO2Parser implements OO2ParserConstants {
  */
   final public Expressao PExpressaoChamadora() throws ParseException {
   Expressao exp;
-    if (jj_2_40(2147483647)) {
-      exp = PThis();
-    } else if (jj_2_41(2147483647)) {
+    if (jj_2_41(2147483647)) {
       exp = PThis();
     } else if (jj_2_42(2147483647)) {
-      exp = PId();
+      exp = PThis();
     } else if (jj_2_43(2147483647)) {
       exp = PId();
     } else if (jj_2_44(2147483647)) {
-      exp = PLeftExpressionChamadora();
+      exp = PId();
     } else if (jj_2_45(2147483647)) {
+      exp = PLeftExpressionChamadora();
+    } else if (jj_2_46(2147483647)) {
       exp = PLeftExpressionChamadora();
     } else {
       jj_consume_token(-1);
@@ -1060,11 +1100,11 @@ public class OO2Parser implements OO2ParserConstants {
  **/
   final public LeftExpression PLeftExpressionChamadora() throws ParseException {
   LeftExpression retorno;
-    if (jj_2_46(2147483647)) {
+    if (jj_2_47(2147483647)) {
       retorno = PAcessoAtributoIdChamador();
-    } else if (jj_2_47(2147483647)) {
-      retorno = PAcessoAtributoThis();
     } else if (jj_2_48(2147483647)) {
+      retorno = PAcessoAtributoThis();
+    } else if (jj_2_49(2147483647)) {
       retorno = PId();
     } else {
       jj_consume_token(-1);
@@ -1080,13 +1120,13 @@ public class OO2Parser implements OO2ParserConstants {
   final public AcessoAtributoIdOO2 PAcessoAtributoIdChamador() throws ParseException {
   LeftExpression av;
   Id id;
-    if (jj_2_49(2147483647)) {
+    if (jj_2_50(2147483647)) {
       jj_consume_token(LPAREN);
       av = PLeftExpressionChamadora();
       jj_consume_token(RPAREN);
       jj_consume_token(DOT);
       id = PId();
-    } else if (jj_2_50(2147483647)) {
+    } else if (jj_2_51(2147483647)) {
       av = PId();
       jj_consume_token(DOT);
       id = PId();
@@ -1104,21 +1144,21 @@ public class OO2Parser implements OO2ParserConstants {
   final public AcessoAtributo PAcessoAtributoSafeCall() throws ParseException {
   LeftExpression av;
   Id id;
-    if (jj_2_51(2147483647)) {
+    if (jj_2_52(2147483647)) {
       jj_consume_token(LPAREN);
       av = PLeftExpression();
       jj_consume_token(RPAREN);
       jj_consume_token(SAFE_DOT);
       id = PId();
-    } else if (jj_2_52(2147483647)) {
+    } else if (jj_2_53(2147483647)) {
       av = PAcessoAtributoId();
       jj_consume_token(SAFE_DOT);
       id = PId();
-    } else if (jj_2_53(2147483647)) {
+    } else if (jj_2_54(2147483647)) {
       av = PAcessoAtributoThis();
       jj_consume_token(SAFE_DOT);
       id = PId();
-    } else if (jj_2_54(2147483647)) {
+    } else if (jj_2_55(2147483647)) {
       av = PId();
       jj_consume_token(SAFE_DOT);
       id = PId();
@@ -1137,7 +1177,7 @@ public class OO2Parser implements OO2ParserConstants {
   final public ListaDeclaracaoOO PListaDeclaracaoOO() throws ParseException {
         ListaDeclaracaoOO retorno;
         DecClasse decClasse;
-    if (jj_2_55(2147483647)) {
+    if (jj_2_56(2147483647)) {
       retorno = PDecClasseComposta();
     } else {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1146,7 +1186,7 @@ public class OO2Parser implements OO2ParserConstants {
         retorno = new ListaDeclaracaoOO(decClasse);
         break;
       default:
-        jj_la1[18] = jj_gen;
+        jj_la1[19] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1165,7 +1205,7 @@ public class OO2Parser implements OO2ParserConstants {
   DecConstrutor decConstrutor = null;
   DecProcedimento metodos;
   DecClasse resposta;
-    if (jj_2_56(2147483647)) {
+    if (jj_2_57(2147483647)) {
       jj_consume_token(CLASSE);
       nomeClasse = PId();
       jj_consume_token(EXTENDS);
@@ -1178,7 +1218,7 @@ public class OO2Parser implements OO2ParserConstants {
       metodos = PDecProcedimento();
       jj_consume_token(RBRACE);
                                 resposta = new DecClasseSimplesOO2(nomeClasse, superClasse, atributos, decConstrutor, metodos);
-    } else if (jj_2_57(2147483647)) {
+    } else if (jj_2_58(2147483647)) {
       jj_consume_token(CLASSE);
       nomeClasse = PId();
       jj_consume_token(LBRACE);
@@ -1218,7 +1258,7 @@ public class OO2Parser implements OO2ParserConstants {
  **/
   final public DecVariavel PDecVariavel() throws ParseException {
   DecVariavel retorno;
-    if (jj_2_58(2147483647)) {
+    if (jj_2_59(2147483647)) {
       retorno = PCompostaDecVariavel();
     } else {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1230,7 +1270,7 @@ public class OO2Parser implements OO2ParserConstants {
         retorno = PDecVariavelAtomica();
         break;
       default:
-        jj_la1[19] = jj_gen;
+        jj_la1[20] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1246,7 +1286,7 @@ public class OO2Parser implements OO2ParserConstants {
         Id nomeMetodo;
         ListaDeclaracaoParametro listaPar = null;
         Comando comando;
-    if (jj_2_59(2147483647)) {
+    if (jj_2_60(2147483647)) {
       nomeMetodo = PId();
       jj_consume_token(LPAREN);
       jj_consume_token(RPAREN);
@@ -1265,7 +1305,7 @@ public class OO2Parser implements OO2ParserConstants {
         jj_consume_token(RBRACE);
         break;
       default:
-        jj_la1[20] = jj_gen;
+        jj_la1[21] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1296,13 +1336,13 @@ public class OO2Parser implements OO2ParserConstants {
  **/
   final public DecVariavel PDecVariavelAtomica() throws ParseException {
   DecVariavel retorno;
-    if (jj_2_60(2147483647)) {
+    if (jj_2_61(2147483647)) {
       retorno = PDecVariavelObjeto();
-    } else if (jj_2_61(2147483647)) {
+    } else if (jj_2_62(2147483647)) {
       jj_consume_token(LPAREN);
       retorno = PDecVariavel();
       jj_consume_token(RPAREN);
-    } else if (jj_2_62(2147483647)) {
+    } else if (jj_2_63(2147483647)) {
       retorno = PSimplesDecVariavel();
     } else {
       jj_consume_token(-1);
@@ -1319,7 +1359,7 @@ public class OO2Parser implements OO2ParserConstants {
         Id id, idClasse;
         ListaExpressao parametros= null;
         Tipo tipo;
-    if (jj_2_63(2147483647)) {
+    if (jj_2_64(2147483647)) {
       tipo = PTipo();
       id = PId();
       jj_consume_token(ATTRIB);
@@ -1343,7 +1383,7 @@ public class OO2Parser implements OO2ParserConstants {
         jj_consume_token(RPAREN);
         break;
       default:
-        jj_la1[21] = jj_gen;
+        jj_la1[22] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1379,7 +1419,7 @@ public class OO2Parser implements OO2ParserConstants {
  **/
   final public DecProcedimento PDecProcedimento() throws ParseException {
   DecProcedimento retorno;
-    if (jj_2_64(2147483647)) {
+    if (jj_2_65(2147483647)) {
       retorno = PDecProcedimentoComposta();
     } else {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1387,7 +1427,7 @@ public class OO2Parser implements OO2ParserConstants {
         retorno = PDecProcedimentoSimples();
         break;
       default:
-        jj_la1[22] = jj_gen;
+        jj_la1[23] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1416,7 +1456,7 @@ public class OO2Parser implements OO2ParserConstants {
   Id nome;
   ListaDeclaracaoParametro listaPar = null;
   Comando comando;
-    if (jj_2_65(2147483647)) {
+    if (jj_2_66(2147483647)) {
       jj_consume_token(PROC);
       nome = PId();
       jj_consume_token(LPAREN);
@@ -1437,7 +1477,7 @@ public class OO2Parser implements OO2ParserConstants {
         jj_consume_token(RBRACE);
         break;
       default:
-        jj_la1[23] = jj_gen;
+        jj_la1[24] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1456,7 +1496,7 @@ public class OO2Parser implements OO2ParserConstants {
   final public ListaDeclaracaoParametro PListaDeclaracaoParametro() throws ParseException {
   ListaDeclaracaoParametro retorno;
   DecParametro decPar;
-    if (jj_2_66(2147483647)) {
+    if (jj_2_67(2147483647)) {
       retorno = PDecParametroComposto();
     } else {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1468,7 +1508,7 @@ public class OO2Parser implements OO2ParserConstants {
       retorno = new ListaDeclaracaoParametro(decPar);
         break;
       default:
-        jj_la1[24] = jj_gen;
+        jj_la1[25] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1508,7 +1548,7 @@ public class OO2Parser implements OO2ParserConstants {
  **/
   final public Tipo PTipo() throws ParseException {
   Tipo tipo;
-    if (jj_2_67(2147483647)) {
+    if (jj_2_68(2147483647)) {
       tipo = PTipoPrimitivo();
     } else {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -1516,7 +1556,7 @@ public class OO2Parser implements OO2ParserConstants {
         tipo = PTipoClasse();
         break;
       default:
-        jj_la1[25] = jj_gen;
+        jj_la1[26] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1530,10 +1570,10 @@ public class OO2Parser implements OO2ParserConstants {
  **/
   final public Tipo PTipoPrimitivo() throws ParseException {
   Tipo retorno;
-    if (jj_2_68(2147483647)) {
+    if (jj_2_69(2147483647)) {
       jj_consume_token(INT);
       retorno = TipoPrimitivo.TIPO_INTEIRO;
-    } else if (jj_2_69(2147483647)) {
+    } else if (jj_2_70(2147483647)) {
       jj_consume_token(BOOLEAN);
       retorno = TipoPrimitivo.TIPO_BOOLEANO;
     } else {
@@ -1543,7 +1583,7 @@ public class OO2Parser implements OO2ParserConstants {
       retorno = TipoPrimitivo.TIPO_STRING;
         break;
       default:
-        jj_la1[26] = jj_gen;
+        jj_la1[27] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -1568,7 +1608,7 @@ public class OO2Parser implements OO2ParserConstants {
         retorno = new TipoNullable(tipoClasse);
       break;
     default:
-      jj_la1[27] = jj_gen;
+      jj_la1[28] = jj_gen;
         retorno = tipoClasse;
     }
     {if (true) return retorno;}
@@ -1584,7 +1624,7 @@ public class OO2Parser implements OO2ParserConstants {
     cond = PExpBinaria();
     label_4:
     while (true) {
-      if (jj_2_70(2)) {
+      if (jj_2_71(2)) {
         ;
       } else {
         break label_4;
@@ -2087,177 +2127,14 @@ public class OO2Parser implements OO2ParserConstants {
     finally { jj_save(69, xla); }
   }
 
-  private boolean jj_3R_6() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_36()) {
-    jj_scanpos = xsp;
-    if (jj_3R_37()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3_24() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(13)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(14)) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3_23() {
-    if (jj_scan_token(INTEGER_LITERAL)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_62() {
-    if (jj_3R_7()) return true;
-    return false;
-  }
-
-  private boolean jj_3_22() {
-    if (jj_scan_token(NULL)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_61() {
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_159() {
-    if (jj_3R_163()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_60() {
-    if (jj_3R_17()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_89() {
-    if (jj_3R_5()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_158() {
-    if (jj_3R_162()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_60()) {
-    jj_scanpos = xsp;
-    if (jj_3R_61()) {
-    jj_scanpos = xsp;
-    if (jj_3R_62()) return true;
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3R_157() {
-    if (jj_3R_161()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_22() {
-    if (jj_3R_6()) return true;
-    if (jj_3R_7()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_156() {
-    if (jj_3R_160()) return true;
-    return false;
-  }
-
-  private boolean jj_3_45() {
-    if (jj_3R_16()) return true;
-    if (jj_scan_token(SAFE_DOT)) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_1() {
-    if (jj_3R_5()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
-    return false;
-  }
-
-  private boolean jj_3_44() {
-    if (jj_3R_16()) return true;
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_155() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_156()) {
-    jj_scanpos = xsp;
-    if (jj_3R_157()) {
-    jj_scanpos = xsp;
-    if (jj_3R_158()) {
-    jj_scanpos = xsp;
-    if (jj_3R_159()) return true;
-    }
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3_43() {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(SAFE_DOT)) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_42() {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_21() {
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_10()) return true;
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
+  private boolean jj_2_71(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_71(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(70, xla); }
   }
 
   private boolean jj_3_41() {
-    if (jj_scan_token(THIS)) return true;
-    if (jj_scan_token(SAFE_DOT)) return true;
-    if (jj_scan_token(IDENTIFIER)) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_51() {
-    if (jj_3R_5()) return true;
-    return false;
-  }
-
-  private boolean jj_3_20() {
-    if (jj_scan_token(THIS)) return true;
-    return false;
-  }
-
-  private boolean jj_3_40() {
     if (jj_scan_token(THIS)) return true;
     if (jj_scan_token(DOT)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
@@ -2267,16 +2144,6 @@ public class OO2Parser implements OO2ParserConstants {
 
   private boolean jj_3R_43() {
     if (jj_3R_16()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_50() {
-    if (jj_3R_89()) return true;
-    return false;
-  }
-
-  private boolean jj_3_19() {
-    if (jj_3R_9()) return true;
     return false;
   }
 
@@ -2292,23 +2159,8 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_11() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_50()) {
-    jj_scanpos = xsp;
-    if (jj_3R_51()) return true;
-    }
-    return false;
-  }
-
   private boolean jj_3R_41() {
     if (jj_3R_7()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_154() {
-    if (jj_3R_155()) return true;
     return false;
   }
 
@@ -2317,10 +2169,12 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_153() {
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_10()) return true;
-    if (jj_scan_token(RPAREN)) return true;
+  private boolean jj_3R_163() {
+    return false;
+  }
+
+  private boolean jj_3R_162() {
+    if (jj_3R_130()) return true;
     return false;
   }
 
@@ -2329,8 +2183,10 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_152() {
-    if (jj_3R_87()) return true;
+  private boolean jj_3R_89() {
+    if (jj_3R_5()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    if (jj_3R_11()) return true;
     return false;
   }
 
@@ -2339,8 +2195,17 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_151() {
-    if (jj_3R_9()) return true;
+  private boolean jj_3R_156() {
+    if (jj_scan_token(NEW)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_162()) {
+    jj_scanpos = xsp;
+    if (jj_3R_163()) return true;
+    }
+    if (jj_scan_token(RPAREN)) return true;
     return false;
   }
 
@@ -2366,25 +2231,29 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_66() {
+  private boolean jj_3_67() {
     if (jj_3R_22()) return true;
     if (jj_scan_token(COMMA)) return true;
     return false;
   }
 
-  private boolean jj_3R_150() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_151()) {
-    jj_scanpos = xsp;
-    if (jj_3R_152()) {
-    jj_scanpos = xsp;
-    if (jj_3R_153()) {
-    jj_scanpos = xsp;
-    if (jj_3R_154()) return true;
-    }
-    }
-    }
+  private boolean jj_3_1() {
+    if (jj_3R_5()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3_22() {
+    if (jj_scan_token(NEW)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_21() {
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_10()) return true;
+    if (jj_scan_token(RPAREN)) return true;
     return false;
   }
 
@@ -2393,13 +2262,38 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
+  private boolean jj_3_20() {
+    if (jj_scan_token(THIS)) return true;
+    return false;
+  }
+
   private boolean jj_3R_125() {
     if (jj_3R_133()) return true;
     return false;
   }
 
-  private boolean jj_3_39() {
+  private boolean jj_3R_51() {
+    if (jj_3R_5()) return true;
+    return false;
+  }
+
+  private boolean jj_3_19() {
+    if (jj_3R_9()) return true;
+    return false;
+  }
+
+  private boolean jj_3_40() {
     if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_50() {
+    if (jj_3R_89()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_155() {
+    if (jj_3R_157()) return true;
     return false;
   }
 
@@ -2413,13 +2307,40 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_10() {
-    if (jj_3R_23()) return true;
+  private boolean jj_3R_154() {
+    if (jj_3R_156()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_11() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_50()) {
+    jj_scanpos = xsp;
+    if (jj_3R_51()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_153() {
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_10()) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_152() {
+    if (jj_3R_87()) return true;
     return false;
   }
 
   private boolean jj_3R_53() {
     if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_151() {
+    if (jj_3R_9()) return true;
     return false;
   }
 
@@ -2430,11 +2351,30 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_65() {
+  private boolean jj_3_66() {
     if (jj_scan_token(PROC)) return true;
     if (jj_3R_7()) return true;
     if (jj_scan_token(LPAREN)) return true;
     if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_150() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_151()) {
+    jj_scanpos = xsp;
+    if (jj_3R_152()) {
+    jj_scanpos = xsp;
+    if (jj_3R_153()) {
+    jj_scanpos = xsp;
+    if (jj_3R_154()) {
+    jj_scanpos = xsp;
+    if (jj_3R_155()) return true;
+    }
+    }
+    }
+    }
     return false;
   }
 
@@ -2450,15 +2390,7 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_128() {
-    if (jj_scan_token(WRITE)) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_10()) return true;
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_38() {
+  private boolean jj_3_39() {
     if (jj_scan_token(LPAREN)) return true;
     return false;
   }
@@ -2503,6 +2435,11 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_10() {
+    if (jj_3R_23()) return true;
+    return false;
+  }
+
   private boolean jj_3R_54() {
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_87()) return true;
@@ -2522,25 +2459,12 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_129() {
-    if (jj_scan_token(READ)) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_37() {
+  private boolean jj_3_38() {
     if (jj_3R_15()) return true;
     return false;
   }
 
-  private boolean jj_3_18() {
-    if (jj_scan_token(WRITE)) return true;
-    return false;
-  }
-
-  private boolean jj_3_36() {
+  private boolean jj_3_37() {
     if (jj_3R_13()) return true;
     return false;
   }
@@ -2552,13 +2476,16 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_35() {
+  private boolean jj_3_36() {
     if (jj_scan_token(THIS)) return true;
     return false;
   }
 
-  private boolean jj_3R_100() {
-    if (jj_3R_129()) return true;
+  private boolean jj_3R_128() {
+    if (jj_scan_token(WRITE)) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_10()) return true;
+    if (jj_scan_token(RPAREN)) return true;
     return false;
   }
 
@@ -2567,14 +2494,9 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_64() {
+  private boolean jj_3_65() {
     if (jj_3R_21()) return true;
     if (jj_scan_token(COMMA)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_99() {
-    if (jj_3R_128()) return true;
     return false;
   }
 
@@ -2588,17 +2510,7 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_80() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_99()) {
-    jj_scanpos = xsp;
-    if (jj_3R_100()) return true;
-    }
-    return false;
-  }
-
-  private boolean jj_3_34() {
+  private boolean jj_3_35() {
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_9()) return true;
     if (jj_scan_token(RPAREN)) return true;
@@ -2613,12 +2525,20 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_129() {
+    if (jj_scan_token(READ)) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
   private boolean jj_3R_121() {
     if (jj_3R_132()) return true;
     return false;
   }
 
-  private boolean jj_3_33() {
+  private boolean jj_3_34() {
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(DOT)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
@@ -2647,29 +2567,16 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_106() {
-    if (jj_3R_9()) return true;
-    if (jj_scan_token(ATTRIB)) return true;
-    if (jj_scan_token(NEW)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_130()) return true;
-    if (jj_scan_token(RPAREN)) return true;
+  private boolean jj_3_18() {
+    if (jj_scan_token(WRITE)) return true;
     return false;
   }
 
-  private boolean jj_3_32() {
+  private boolean jj_3_33() {
     if (jj_scan_token(THIS)) return true;
     if (jj_scan_token(DOT)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(SAFE_DOT)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_84() {
-    if (jj_3R_9()) return true;
-    if (jj_scan_token(ATTRIB)) return true;
-    if (jj_3R_10()) return true;
     return false;
   }
 
@@ -2680,13 +2587,8 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_17() {
-    if (jj_3R_9()) return true;
-    if (jj_scan_token(ATTRIB)) return true;
-    if (jj_scan_token(NEW)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_scan_token(RPAREN)) return true;
+  private boolean jj_3R_100() {
+    if (jj_3R_129()) return true;
     return false;
   }
 
@@ -2694,6 +2596,11 @@ public class OO2Parser implements OO2ParserConstants {
     if (jj_3R_14()) return true;
     if (jj_scan_token(SAFE_DOT)) return true;
     if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_99() {
+    if (jj_3R_128()) return true;
     return false;
   }
 
@@ -2719,13 +2626,13 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_105() {
-    if (jj_3R_9()) return true;
-    if (jj_scan_token(ATTRIB)) return true;
-    if (jj_scan_token(NEW)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_scan_token(RPAREN)) return true;
+  private boolean jj_3R_80() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_99()) {
+    jj_scanpos = xsp;
+    if (jj_3R_100()) return true;
+    }
     return false;
   }
 
@@ -2749,13 +2656,21 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_83() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_105()) {
-    jj_scanpos = xsp;
-    if (jj_3R_106()) return true;
-    }
+  private boolean jj_3R_106() {
+    if (jj_3R_9()) return true;
+    if (jj_scan_token(ATTRIB)) return true;
+    if (jj_scan_token(NEW)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_130()) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_84() {
+    if (jj_3R_9()) return true;
+    if (jj_scan_token(ATTRIB)) return true;
+    if (jj_3R_10()) return true;
     return false;
   }
 
@@ -2764,7 +2679,17 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_63() {
+  private boolean jj_3_17() {
+    if (jj_3R_9()) return true;
+    if (jj_scan_token(ATTRIB)) return true;
+    if (jj_scan_token(NEW)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_64() {
     if (jj_3R_6()) return true;
     if (jj_3R_7()) return true;
     if (jj_scan_token(ATTRIB)) return true;
@@ -2775,27 +2700,37 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_31() {
+  private boolean jj_3_32() {
     if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
-  private boolean jj_3_30() {
+  private boolean jj_3_31() {
     if (jj_3R_15()) return true;
     return false;
   }
 
-  private boolean jj_3_29() {
+  private boolean jj_3_30() {
     if (jj_3R_14()) return true;
     return false;
   }
 
-  private boolean jj_3_28() {
+  private boolean jj_3_29() {
     if (jj_3R_13()) return true;
     return false;
   }
 
-  private boolean jj_3_27() {
+  private boolean jj_3R_105() {
+    if (jj_3R_9()) return true;
+    if (jj_scan_token(ATTRIB)) return true;
+    if (jj_scan_token(NEW)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_28() {
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(DOT)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
@@ -2814,12 +2749,7 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_12() {
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  private boolean jj_3_26() {
+  private boolean jj_3_27() {
     if (jj_scan_token(THIS)) return true;
     if (jj_scan_token(DOT)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
@@ -2857,12 +2787,22 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_83() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_105()) {
+    jj_scanpos = xsp;
+    if (jj_3R_106()) return true;
+    }
+    return false;
+  }
+
   private boolean jj_3R_45() {
     if (jj_3R_88()) return true;
     return false;
   }
 
-  private boolean jj_3_62() {
+  private boolean jj_3_63() {
     if (jj_3R_6()) return true;
     if (jj_3R_7()) return true;
     if (jj_scan_token(ASSIGN)) return true;
@@ -2875,25 +2815,18 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_61() {
+  private boolean jj_3_62() {
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_20()) return true;
     if (jj_scan_token(RPAREN)) return true;
     return false;
   }
 
-  private boolean jj_3_60() {
+  private boolean jj_3_61() {
     if (jj_3R_6()) return true;
     if (jj_3R_7()) return true;
     if (jj_scan_token(ATTRIB)) return true;
     if (jj_scan_token(NEW)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_146() {
-    if (jj_3R_12()) return true;
-    if (jj_scan_token(COMMA)) return true;
-    if (jj_3R_130()) return true;
     return false;
   }
 
@@ -2931,14 +2864,13 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_16() {
-    if (jj_3R_12()) return true;
-    if (jj_scan_token(COMMA)) return true;
+  private boolean jj_3R_67() {
+    if (jj_3R_92()) return true;
     return false;
   }
 
-  private boolean jj_3R_67() {
-    if (jj_3R_92()) return true;
+  private boolean jj_3R_12() {
+    if (jj_3R_10()) return true;
     return false;
   }
 
@@ -2960,23 +2892,10 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_136() {
+  private boolean jj_3R_146() {
     if (jj_3R_12()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_135() {
-    if (jj_3R_146()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_130() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_135()) {
-    jj_scanpos = xsp;
-    if (jj_3R_136()) return true;
-    }
+    if (jj_scan_token(COMMA)) return true;
+    if (jj_3R_130()) return true;
     return false;
   }
 
@@ -2993,12 +2912,9 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_15() {
-    if (jj_3R_8()) return true;
-    if (jj_scan_token(DOT)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_scan_token(RPAREN)) return true;
+  private boolean jj_3_16() {
+    if (jj_3R_12()) return true;
+    if (jj_scan_token(COMMA)) return true;
     return false;
   }
 
@@ -3023,45 +2939,36 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_59() {
+  private boolean jj_3_60() {
     if (jj_3R_7()) return true;
     if (jj_scan_token(LPAREN)) return true;
     if (jj_scan_token(RPAREN)) return true;
     return false;
   }
 
-  private boolean jj_3R_104() {
-    if (jj_3R_8()) return true;
-    if (jj_scan_token(DOT)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_130()) return true;
-    if (jj_scan_token(RPAREN)) return true;
+  private boolean jj_3R_136() {
+    if (jj_3R_12()) return true;
     return false;
   }
 
-  private boolean jj_3R_103() {
-    if (jj_3R_8()) return true;
-    if (jj_scan_token(DOT)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_82() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_103()) {
-    jj_scanpos = xsp;
-    if (jj_3R_104()) return true;
-    }
+  private boolean jj_3R_135() {
+    if (jj_3R_146()) return true;
     return false;
   }
 
   private boolean jj_3R_141() {
     if (jj_scan_token(PLUS)) return true;
     if (jj_3R_127()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_130() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_135()) {
+    jj_scanpos = xsp;
+    if (jj_3R_136()) return true;
+    }
     return false;
   }
 
@@ -3097,9 +3004,9 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_14() {
+  private boolean jj_3_15() {
     if (jj_3R_8()) return true;
-    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_scan_token(DOT)) return true;
     if (jj_3R_7()) return true;
     if (jj_scan_token(LPAREN)) return true;
     if (jj_scan_token(RPAREN)) return true;
@@ -3128,15 +3035,15 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_58() {
+  private boolean jj_3_59() {
     if (jj_3R_19()) return true;
     if (jj_scan_token(COMMA)) return true;
     return false;
   }
 
-  private boolean jj_3R_102() {
+  private boolean jj_3R_104() {
     if (jj_3R_8()) return true;
-    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_scan_token(DOT)) return true;
     if (jj_3R_7()) return true;
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_130()) return true;
@@ -3154,27 +3061,27 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_101() {
+  private boolean jj_3R_103() {
     if (jj_3R_8()) return true;
-    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_scan_token(DOT)) return true;
     if (jj_3R_7()) return true;
     if (jj_scan_token(LPAREN)) return true;
     if (jj_scan_token(RPAREN)) return true;
     return false;
   }
 
-  private boolean jj_3R_71() {
-    if (jj_3R_19()) return true;
+  private boolean jj_3R_82() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_103()) {
+    jj_scanpos = xsp;
+    if (jj_3R_104()) return true;
+    }
     return false;
   }
 
-  private boolean jj_3R_81() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_101()) {
-    jj_scanpos = xsp;
-    if (jj_3R_102()) return true;
-    }
+  private boolean jj_3R_71() {
+    if (jj_3R_19()) return true;
     return false;
   }
 
@@ -3199,6 +3106,15 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
+  private boolean jj_3_14() {
+    if (jj_3R_8()) return true;
+    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
   private boolean jj_3R_74() {
     if (jj_3R_96()) return true;
     Token xsp;
@@ -3206,6 +3122,74 @@ public class OO2Parser implements OO2ParserConstants {
       xsp = jj_scanpos;
       if (jj_3R_118()) { jj_scanpos = xsp; break; }
     }
+    return false;
+  }
+
+  private boolean jj_3R_102() {
+    if (jj_3R_8()) return true;
+    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_130()) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_101() {
+    if (jj_3R_8()) return true;
+    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_81() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_101()) {
+    jj_scanpos = xsp;
+    if (jj_3R_102()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_58() {
+    if (jj_scan_token(CLASSE)) return true;
+    if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_149() {
+    if (jj_scan_token(LENGTH)) return true;
+    if (jj_3R_10()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_66() {
+    if (jj_scan_token(CLASSE)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LBRACE)) return true;
+    if (jj_3R_20()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    if (jj_3R_90()) return true;
+    if (jj_scan_token(COMMA)) return true;
+    if (jj_3R_91()) return true;
+    if (jj_scan_token(RBRACE)) return true;
+    return false;
+  }
+
+  private boolean jj_3_57() {
+    if (jj_scan_token(CLASSE)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(EXTENDS)) return true;
+    if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3_71() {
+    if (jj_scan_token(ELVIS)) return true;
+    if (jj_3R_23()) return true;
     return false;
   }
 
@@ -3230,9 +3214,24 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_57() {
+  private boolean jj_3R_65() {
     if (jj_scan_token(CLASSE)) return true;
     if (jj_3R_7()) return true;
+    if (jj_scan_token(EXTENDS)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LBRACE)) return true;
+    if (jj_3R_20()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    if (jj_3R_90()) return true;
+    if (jj_scan_token(COMMA)) return true;
+    if (jj_3R_91()) return true;
+    if (jj_scan_token(RBRACE)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_148() {
+    if (jj_scan_token(NOT)) return true;
+    if (jj_3R_10()) return true;
     return false;
   }
 
@@ -3260,70 +3259,6 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_149() {
-    if (jj_scan_token(LENGTH)) return true;
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_66() {
-    if (jj_scan_token(CLASSE)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LBRACE)) return true;
-    if (jj_3R_20()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
-    if (jj_3R_90()) return true;
-    if (jj_scan_token(COMMA)) return true;
-    if (jj_3R_91()) return true;
-    if (jj_scan_token(RBRACE)) return true;
-    return false;
-  }
-
-  private boolean jj_3_56() {
-    if (jj_scan_token(CLASSE)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(EXTENDS)) return true;
-    if (jj_3R_7()) return true;
-    return false;
-  }
-
-  private boolean jj_3_70() {
-    if (jj_scan_token(ELVIS)) return true;
-    if (jj_3R_23()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_65() {
-    if (jj_scan_token(CLASSE)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(EXTENDS)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LBRACE)) return true;
-    if (jj_3R_20()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
-    if (jj_3R_90()) return true;
-    if (jj_scan_token(COMMA)) return true;
-    if (jj_3R_91()) return true;
-    if (jj_scan_token(RBRACE)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_148() {
-    if (jj_scan_token(NOT)) return true;
-    if (jj_3R_10()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_78() {
-    if (jj_scan_token(WHILE)) return true;
-    if (jj_3R_10()) return true;
-    if (jj_scan_token(DO)) return true;
-    if (jj_scan_token(LBRACE)) return true;
-    if (jj_3R_11()) return true;
-    if (jj_scan_token(RBRACE)) return true;
-    return false;
-  }
-
   private boolean jj_3R_18() {
     Token xsp;
     xsp = jj_scanpos;
@@ -3345,15 +3280,18 @@ public class OO2Parser implements OO2ParserConstants {
     Token xsp;
     while (true) {
       xsp = jj_scanpos;
-      if (jj_3_70()) { jj_scanpos = xsp; break; }
+      if (jj_3_71()) { jj_scanpos = xsp; break; }
     }
     return false;
   }
 
-  private boolean jj_3R_77() {
-    if (jj_3R_20()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
+  private boolean jj_3R_78() {
+    if (jj_scan_token(WHILE)) return true;
+    if (jj_3R_10()) return true;
+    if (jj_scan_token(DO)) return true;
+    if (jj_scan_token(LBRACE)) return true;
     if (jj_3R_11()) return true;
+    if (jj_scan_token(RBRACE)) return true;
     return false;
   }
 
@@ -3367,7 +3305,7 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_55() {
+  private boolean jj_3_56() {
     if (jj_3R_18()) return true;
     if (jj_scan_token(COMMA)) return true;
     return false;
@@ -3403,17 +3341,15 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_76() {
-    if (jj_scan_token(LBRACE)) return true;
-    if (jj_3R_20()) return true;
-    if (jj_scan_token(SEMICOLON)) return true;
-    if (jj_3R_11()) return true;
-    if (jj_scan_token(RBRACE)) return true;
+  private boolean jj_3R_110() {
+    if (jj_scan_token(HOOK)) return true;
     return false;
   }
 
-  private boolean jj_3R_110() {
-    if (jj_scan_token(HOOK)) return true;
+  private boolean jj_3R_77() {
+    if (jj_3R_20()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    if (jj_3R_11()) return true;
     return false;
   }
 
@@ -3428,48 +3364,30 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_75() {
-    if (jj_scan_token(COMAND_SKIP)) return true;
-    return false;
-  }
-
-  private boolean jj_3_54() {
+  private boolean jj_3_55() {
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(SAFE_DOT)) return true;
     return false;
   }
 
-  private boolean jj_3R_163() {
+  private boolean jj_3R_167() {
     if (jj_scan_token(STRING_LITERAL)) return true;
     return false;
   }
 
-  private boolean jj_3_53() {
+  private boolean jj_3_54() {
     if (jj_3R_14()) return true;
     if (jj_scan_token(SAFE_DOT)) return true;
     return false;
   }
 
-  private boolean jj_3_12() {
-    if (jj_3R_9()) return true;
-    if (jj_scan_token(ATTRIB)) return true;
-    return false;
-  }
-
-  private boolean jj_3_52() {
+  private boolean jj_3_53() {
     if (jj_3R_13()) return true;
     if (jj_scan_token(SAFE_DOT)) return true;
     return false;
   }
 
-  private boolean jj_3_11() {
-    if (jj_3R_9()) return true;
-    if (jj_scan_token(ATTRIB)) return true;
-    if (jj_scan_token(NEW)) return true;
-    return false;
-  }
-
-  private boolean jj_3_51() {
+  private boolean jj_3_52() {
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_9()) return true;
     if (jj_scan_token(RPAREN)) return true;
@@ -3477,19 +3395,12 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_10() {
-    if (jj_3R_8()) return true;
-    if (jj_scan_token(DOT)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_9() {
-    if (jj_3R_8()) return true;
-    if (jj_scan_token(SAFE_DOT)) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(LPAREN)) return true;
+  private boolean jj_3R_76() {
+    if (jj_scan_token(LBRACE)) return true;
+    if (jj_3R_20()) return true;
+    if (jj_scan_token(SEMICOLON)) return true;
+    if (jj_3R_11()) return true;
+    if (jj_scan_token(RBRACE)) return true;
     return false;
   }
 
@@ -3500,30 +3411,13 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_35() {
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_11()) return true;
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_25() {
+  private boolean jj_3_26() {
     if (jj_scan_token(FALSE)) return true;
     return false;
   }
 
-  private boolean jj_3_69() {
+  private boolean jj_3_70() {
     if (jj_scan_token(BOOLEAN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_8() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(21)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(22)) return true;
-    }
     return false;
   }
 
@@ -3534,16 +3428,6 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_34() {
-    if (jj_3R_84()) return true;
-    return false;
-  }
-
-  private boolean jj_3_7() {
-    if (jj_scan_token(IF)) return true;
-    return false;
-  }
-
   private boolean jj_3R_57() {
     if (jj_3R_13()) return true;
     if (jj_scan_token(SAFE_DOT)) return true;
@@ -3551,23 +3435,13 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_33() {
-    if (jj_3R_83()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_165() {
+  private boolean jj_3R_169() {
     if (jj_scan_token(TRUE)) return true;
     return false;
   }
 
   private boolean jj_3R_109() {
     if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
-  private boolean jj_3_6() {
-    if (jj_scan_token(WHILE)) return true;
     return false;
   }
 
@@ -3580,26 +3454,8 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_68() {
+  private boolean jj_3_69() {
     if (jj_scan_token(INT)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_32() {
-    if (jj_3R_82()) return true;
-    return false;
-  }
-
-  private boolean jj_3_5() {
-    if (jj_3R_6()) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(ATTRIB)) return true;
-    if (jj_scan_token(NEW)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_31() {
-    if (jj_3R_81()) return true;
     return false;
   }
 
@@ -3619,24 +3475,17 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_4() {
-    if (jj_3R_6()) return true;
-    if (jj_3R_7()) return true;
-    if (jj_scan_token(ASSIGN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_164() {
+  private boolean jj_3R_168() {
     if (jj_scan_token(FALSE)) return true;
     return false;
   }
 
-  private boolean jj_3R_162() {
+  private boolean jj_3R_166() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_164()) {
+    if (jj_3R_168()) {
     jj_scanpos = xsp;
-    if (jj_3R_165()) return true;
+    if (jj_3R_169()) return true;
     }
     return false;
   }
@@ -3646,27 +3495,12 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_3() {
-    if (jj_scan_token(LBRACE)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_30() {
-    if (jj_3R_80()) return true;
-    return false;
-  }
-
-  private boolean jj_3_2() {
+  private boolean jj_3R_75() {
     if (jj_scan_token(COMAND_SKIP)) return true;
     return false;
   }
 
-  private boolean jj_3R_29() {
-    if (jj_3R_79()) return true;
-    return false;
-  }
-
-  private boolean jj_3_50() {
+  private boolean jj_3_51() {
     if (jj_scan_token(IDENTIFIER)) return true;
     if (jj_scan_token(DOT)) return true;
     if (jj_scan_token(IDENTIFIER)) return true;
@@ -3678,12 +3512,7 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_28() {
-    if (jj_3R_78()) return true;
-    return false;
-  }
-
-  private boolean jj_3_49() {
+  private boolean jj_3_50() {
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_16()) return true;
     if (jj_scan_token(RPAREN)) return true;
@@ -3692,8 +3521,9 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_27() {
-    if (jj_3R_77()) return true;
+  private boolean jj_3_12() {
+    if (jj_3R_9()) return true;
+    if (jj_scan_token(ATTRIB)) return true;
     return false;
   }
 
@@ -3710,23 +3540,31 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_26() {
-    if (jj_3R_77()) return true;
+  private boolean jj_3_11() {
+    if (jj_3R_9()) return true;
+    if (jj_scan_token(ATTRIB)) return true;
+    if (jj_scan_token(NEW)) return true;
     return false;
   }
 
-  private boolean jj_3R_25() {
-    if (jj_3R_76()) return true;
+  private boolean jj_3_10() {
+    if (jj_3R_8()) return true;
+    if (jj_scan_token(DOT)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
     return false;
   }
 
-  private boolean jj_3R_160() {
+  private boolean jj_3R_164() {
     if (jj_scan_token(NULL)) return true;
     return false;
   }
 
-  private boolean jj_3R_24() {
-    if (jj_3R_75()) return true;
+  private boolean jj_3_9() {
+    if (jj_3R_8()) return true;
+    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(LPAREN)) return true;
     return false;
   }
 
@@ -3734,6 +3572,23 @@ public class OO2Parser implements OO2ParserConstants {
     if (jj_3R_7()) return true;
     if (jj_scan_token(DOT)) return true;
     if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_35() {
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_11()) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_8() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(21)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(22)) return true;
+    }
     return false;
   }
 
@@ -3746,7 +3601,7 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3_67() {
+  private boolean jj_3_68() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_scan_token(34)) {
@@ -3756,6 +3611,191 @@ public class OO2Parser implements OO2ParserConstants {
     if (jj_scan_token(33)) return true;
     }
     }
+    return false;
+  }
+
+  private boolean jj_3R_34() {
+    if (jj_3R_84()) return true;
+    return false;
+  }
+
+  private boolean jj_3_7() {
+    if (jj_scan_token(IF)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_33() {
+    if (jj_3R_83()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_17() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_63()) {
+    jj_scanpos = xsp;
+    if (jj_3R_64()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3_6() {
+    if (jj_scan_token(WHILE)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_32() {
+    if (jj_3R_82()) return true;
+    return false;
+  }
+
+  private boolean jj_3_5() {
+    if (jj_3R_6()) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(ATTRIB)) return true;
+    if (jj_scan_token(NEW)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_37() {
+    if (jj_3R_86()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_31() {
+    if (jj_3R_81()) return true;
+    return false;
+  }
+
+  private boolean jj_3_4() {
+    if (jj_3R_6()) return true;
+    if (jj_3R_7()) return true;
+    if (jj_scan_token(ASSIGN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_49() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_165() {
+    if (jj_scan_token(INTEGER_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_3() {
+    if (jj_scan_token(LBRACE)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_30() {
+    if (jj_3R_80()) return true;
+    return false;
+  }
+
+  private boolean jj_3_48() {
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_36() {
+    if (jj_3R_85()) return true;
+    return false;
+  }
+
+  private boolean jj_3_2() {
+    if (jj_scan_token(COMAND_SKIP)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_29() {
+    if (jj_3R_79()) return true;
+    return false;
+  }
+
+  private boolean jj_3_47() {
+    if (jj_3R_17()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_6() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_36()) {
+    jj_scanpos = xsp;
+    if (jj_3R_37()) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_28() {
+    if (jj_3R_78()) return true;
+    return false;
+  }
+
+  private boolean jj_3_25() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(13)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(14)) return true;
+    }
+    return false;
+  }
+
+  private boolean jj_3R_27() {
+    if (jj_3R_77()) return true;
+    return false;
+  }
+
+  private boolean jj_3_24() {
+    if (jj_scan_token(INTEGER_LITERAL)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_26() {
+    if (jj_3R_77()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_62() {
+    if (jj_3R_7()) return true;
+    return false;
+  }
+
+  private boolean jj_3_23() {
+    if (jj_scan_token(NULL)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_25() {
+    if (jj_3R_76()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_61() {
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_161() {
+    if (jj_3R_167()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_24() {
+    if (jj_3R_75()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_60() {
+    if (jj_3R_17()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_160() {
+    if (jj_3R_166()) return true;
     return false;
   }
 
@@ -3799,43 +3839,88 @@ public class OO2Parser implements OO2ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_17() {
+  private boolean jj_3R_16() {
     Token xsp;
     xsp = jj_scanpos;
-    if (jj_3R_63()) {
+    if (jj_3R_60()) {
     jj_scanpos = xsp;
-    if (jj_3R_64()) return true;
+    if (jj_3R_61()) {
+    jj_scanpos = xsp;
+    if (jj_3R_62()) return true;
+    }
     }
     return false;
   }
 
-  private boolean jj_3R_37() {
-    if (jj_3R_86()) return true;
+  private boolean jj_3R_159() {
+    if (jj_3R_165()) return true;
     return false;
   }
 
-  private boolean jj_3_48() {
-    if (jj_scan_token(IDENTIFIER)) return true;
+  private boolean jj_3R_22() {
+    if (jj_3R_6()) return true;
+    if (jj_3R_7()) return true;
     return false;
   }
 
-  private boolean jj_3R_161() {
-    if (jj_scan_token(INTEGER_LITERAL)) return true;
-    return false;
-  }
-
-  private boolean jj_3_47() {
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_36() {
-    if (jj_3R_85()) return true;
+  private boolean jj_3R_158() {
+    if (jj_3R_164()) return true;
     return false;
   }
 
   private boolean jj_3_46() {
-    if (jj_3R_17()) return true;
+    if (jj_3R_16()) return true;
+    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_45() {
+    if (jj_3R_16()) return true;
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_157() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_158()) {
+    jj_scanpos = xsp;
+    if (jj_3R_159()) {
+    jj_scanpos = xsp;
+    if (jj_3R_160()) {
+    jj_scanpos = xsp;
+    if (jj_3R_161()) return true;
+    }
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3_44() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_43() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(LPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_42() {
+    if (jj_scan_token(THIS)) return true;
+    if (jj_scan_token(SAFE_DOT)) return true;
+    if (jj_scan_token(IDENTIFIER)) return true;
+    if (jj_scan_token(LPAREN)) return true;
     return false;
   }
 
@@ -3853,7 +3938,7 @@ public class OO2Parser implements OO2ParserConstants {
   private boolean jj_lookingAhead = false;
   private boolean jj_semLA;
   private int jj_gen;
-  final private int[] jj_la1 = new int[28];
+  final private int[] jj_la1 = new int[29];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static private int[] jj_la1_2;
@@ -3863,15 +3948,15 @@ public class OO2Parser implements OO2ParserConstants {
       jj_la1_init_2();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x8ec0000,0x0,0x800000,0x8000000,0x8000000,0x28007800,0x8000000,0x200000,0x20006000,0x0,0x2000,0x28007800,0x0,0x400,0x400,0x200,0x8000000,0x0,0x10000000,0x0,0x0,0x0,0x40000000,0x40000000,0x0,0x0,0x0,0x0,};
+      jj_la1_0 = new int[] {0x8ec0000,0x0,0x800000,0x8000000,0x8000000,0x2c007800,0x8000000,0x200000,0x20006000,0x2c007800,0x0,0x2000,0x2c007800,0x0,0x400,0x400,0x200,0x8000000,0x0,0x10000000,0x0,0x0,0x0,0x40000000,0x40000000,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x2907,0x800,0x0,0x900,0x900,0x988,0x900,0x0,0x88,0x80,0x0,0x988,0x10000000,0x0,0x0,0x0,0x0,0x100,0x0,0x907,0x100,0x107,0x0,0x0,0x107,0x100,0x4,0x4000000,};
+      jj_la1_1 = new int[] {0x2907,0x800,0x0,0x900,0x900,0x988,0x900,0x0,0x88,0x988,0x80,0x0,0x988,0x10000000,0x0,0x0,0x0,0x0,0x100,0x0,0x907,0x100,0x107,0x0,0x0,0x107,0x100,0x4,0x4000000,};
    }
    private static void jj_la1_init_2() {
-      jj_la1_2 = new int[] {0x0,0x0,0x0,0x0,0x0,0x10,0x0,0x0,0x0,0x0,0x0,0x10,0x0,0x1c,0x1c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
+      jj_la1_2 = new int[] {0x0,0x0,0x0,0x0,0x0,0x10,0x0,0x0,0x0,0x10,0x0,0x0,0x10,0x0,0x1c,0x1c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
-  final private JJCalls[] jj_2_rtns = new JJCalls[70];
+  final private JJCalls[] jj_2_rtns = new JJCalls[71];
   private boolean jj_rescan = false;
   private int jj_gc = 0;
 
@@ -3886,7 +3971,7 @@ public class OO2Parser implements OO2ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 29; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -3901,7 +3986,7 @@ public class OO2Parser implements OO2ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 29; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -3912,7 +3997,7 @@ public class OO2Parser implements OO2ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 29; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -3923,7 +4008,7 @@ public class OO2Parser implements OO2ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 29; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -3933,7 +4018,7 @@ public class OO2Parser implements OO2ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 29; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -3943,7 +4028,7 @@ public class OO2Parser implements OO2ParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 28; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 29; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -4063,7 +4148,7 @@ public class OO2Parser implements OO2ParserConstants {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 28; i++) {
+    for (int i = 0; i < 29; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -4105,7 +4190,7 @@ public class OO2Parser implements OO2ParserConstants {
 
   private void jj_rescan_token() {
     jj_rescan = true;
-    for (int i = 0; i < 70; i++) {
+    for (int i = 0; i < 71; i++) {
     try {
       JJCalls p = jj_2_rtns[i];
       do {
@@ -4182,6 +4267,7 @@ public class OO2Parser implements OO2ParserConstants {
             case 67: jj_3_68(); break;
             case 68: jj_3_69(); break;
             case 69: jj_3_70(); break;
+            case 70: jj_3_71(); break;
           }
         }
         p = p.next;

@@ -59,10 +59,15 @@
 		}
 	};
 	{
-		TvLCD tvLCD := new TvLCD(false,110,13,20, true);	
-		TvLCD? tvLCD2 = null;
-		TvLCD tvLCD3 = tvLCD2?: new TvLCD(false,110,13,20, true);
-		int canal = tvLCD?.canal ?: 9;
-		write(canal)
+		TvLCD? tvLCD := null;
+		write("tvLCD is null: " ++ (tvLCD == null));
+		tvLCD?.imprimeEstadoTvLCD();
+		int canal = tvLCD?.canal ?: 5;
+		write("canal: " ++ canal);
+		TvLCD? tvLCD2 := new TvLCD(false,110,13,20, true);
+		tvLCD2?.imprimeEstadoTvLCD();
+		int canal2 = tvLCD2?.canal ?: 5;
+		write("canal2: " ++ canal2)
 	}
 }
+
