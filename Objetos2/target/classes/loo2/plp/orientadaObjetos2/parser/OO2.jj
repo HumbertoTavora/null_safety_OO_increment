@@ -64,6 +64,7 @@ import loo2.plp.orientadaObjetos2.comando.*;
 import loo2.plp.orientadaObjetos2.expressao.leftExpression.*;
 import loo2.plp.orientadaObjetos2.expressao.binaria.ExpElvis;
 import loo2.plp.orientadaObjetos2.declaracao.variavel.DecVariavelObjetoOO2;
+import loo2.plp.orientadaObjetos2.util.TipoNullable;
 
 /**
  * Parser para a Linguagem de Programa��o Orientada a Objetos 2
@@ -1566,19 +1567,30 @@ Tipo PTipoPrimitivo() :
 }
 
 /**
- * TipoClasse ::= Id
+ * TipoClasse ::= Id ["?"]
+ * Permite tipos nullable apenas para classes (não primitivos)
  **/
 Tipo PTipoClasse() :
 {
   Tipo retorno;
   Id id;
+  TipoClasse tipoClasse;
 }
 {
   (
     id = PId()
     {
-      retorno = new TipoClasse(id);
+      tipoClasse = new TipoClasse(id);
     }
+    (
+      < HOOK >
+      {
+        retorno = new TipoNullable(tipoClasse);
+      }
+    | {
+        retorno = tipoClasse;
+      }
+    )
   )
   {
     return retorno;

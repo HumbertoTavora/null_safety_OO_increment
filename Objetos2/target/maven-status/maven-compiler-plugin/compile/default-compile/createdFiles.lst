@@ -24,6 +24,7 @@ loo2\plp\orientadaObjetos1\excecao\declaracao\ObjetoNaoDeclaradoException.class
 loo2\plp\orientadaObjetos1\declaracao\classe\DecClasse.class
 loo2\plp\orientadaObjetos2\memoria\ContextoCompilacaoOO2.class
 loo2\plp\orientadaObjetos1\util\Tipo.class
+loo2\plp\orientadaObjetos2\util\TipoNullable.class
 loo2\plp\orientadaObjetos1\comando\Procedimento.class
 loo2\plp\orientadaObjetos2\parser\OO2Parser$LookaheadSuccess.class
 loo2\plp\orientadaObjetos2\expressao\leftExpression\AcessoAtributoIdOO2.class

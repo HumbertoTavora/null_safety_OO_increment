@@ -57,6 +57,7 @@ import loo2.plp.orientadaObjetos2.comando.*;
 import loo2.plp.orientadaObjetos2.expressao.leftExpression.*;
 import loo2.plp.orientadaObjetos2.expressao.binaria.ExpElvis;
 import loo2.plp.orientadaObjetos2.declaracao.variavel.DecVariavelObjetoOO2;
+import loo2.plp.orientadaObjetos2.util.TipoNullable;
 
 /** Token Manager. */
 public class OO2ParserTokenManager implements OO2ParserConstants
