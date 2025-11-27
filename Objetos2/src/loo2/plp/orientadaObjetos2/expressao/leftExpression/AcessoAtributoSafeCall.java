@@ -43,7 +43,7 @@ public class AcessoAtributoSafeCall extends AcessoAtributo {
         ContextoObjeto contexto = objeto.getEstado();
         Valor valorAtributo = contexto.get(super.getId());
         if (valorAtributo == null) {
-            return new ValorNull(); // Safe-call to missing attribute also yields null
+            return new ValorNull();
         }
         return valorAtributo;
     }
@@ -59,11 +59,9 @@ public class AcessoAtributoSafeCall extends AcessoAtributo {
         if (alvo.checaTipo(ambiente)) {
             try {
                 Tipo tipo = alvo.getTipo(ambiente);
-                // Safe call allows null targets - if target is null, the call is valid (returns null)
                 if (tipo.equals(TipoClasse.TIPO_NULL)) {
                     return true;
                 }
-                // Otherwise, check if it's a valid class type and the attribute exists
                 if (tipo instanceof TipoClasse) {
                     DefClasseOO2 defClasse = (DefClasseOO2) ambiente.getDefClasse(tipo.getTipo());
 

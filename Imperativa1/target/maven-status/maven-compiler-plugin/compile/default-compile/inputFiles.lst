@@ -1,65 +1,65 @@
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\target\generated-sources\javacc\li1\plp\imperative1\parser\JavaCharStream.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\memory\ContextoExecucaoImperativa.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\target\generated-sources\javacc\li1\plp\imperative1\parser\Imp1Parser.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\functional2\expression\ValorIrredutivel.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\Programa.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ValorConcreto.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpConcat.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\AmbienteCompilacao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions1\util\TipoPrimitivo.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpUnaria.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\VariavelJaDeclaradaException.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\Write.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\util\Lista.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\target\generated-sources\javacc\li1\plp\imperative1\parser\Token.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpSub.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpNot.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpDeclaracao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\SequenciaComando.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\memory\EntradaVaziaException.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\IO.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\ContextoExecucao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpSoma.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions1\util\Tipo.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ValorInteiro.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\target\generated-sources\javacc\li1\plp\imperative1\parser\Imp1ParserConstants.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\declaration\Declaracao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\target\generated-sources\javacc\li1\plp\imperative1\parser\TokenMgrError.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\ContextoCompilacao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\Expressao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ValorString.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpEquals.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\IdentificadorJaDeclaradoException.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpAnd.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\memory\AmbienteExecucaoImperativa.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\Contexto.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\Valor.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\Comando.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\memory\ErroTipoEntradaException.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\memory\ListaValor.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\Read.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpMenos.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\Skip.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\target\generated-sources\javacc\li1\plp\imperative1\parser\ParseException.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ValorBooleano.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\memory\ContextoCompilacaoImperativa.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpBinaria.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\ComandoDeclaracao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions1\excecao\ErroTipoException.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\memory\AmbienteCompilacaoImperativa.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\Id.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\declaration\DecVariavel.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\IdentificadorNaoDeclaradoException.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\IfThenElse.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\While.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\declaration\DeclaracaoVariavel.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\declaration\DeclaracaoComposta.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\AmbienteExecucao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\target\generated-sources\javacc\li1\plp\imperative1\parser\Imp1ParserTokenManager.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpLength.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\StackHandler.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\imperative1\command\Atribuicao.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\expression\ExpOr.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\Ambiente.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions2\memory\VariavelNaoDeclaradaException.java
-C:\Users\jpspm\Documents\mestrado\plp\null_safety_OO_increment\Imperativa1\src\li1\plp\expressions1\util\ToStringProvider.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpOr.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/functional2/expression/ValorIrredutivel.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/memory/ContextoExecucaoImperativa.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/ContextoCompilacao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpUnaria.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/VariavelNaoDeclaradaException.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/declaration/DeclaracaoVariavel.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/Skip.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/target/generated-sources/javacc/li1/plp/imperative1/parser/Imp1ParserTokenManager.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/VariavelJaDeclaradaException.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ValorInteiro.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/While.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ValorBooleano.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/memory/AmbienteCompilacaoImperativa.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/IfThenElse.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/target/generated-sources/javacc/li1/plp/imperative1/parser/ParseException.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/target/generated-sources/javacc/li1/plp/imperative1/parser/TokenMgrError.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpConcat.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/IdentificadorNaoDeclaradoException.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/target/generated-sources/javacc/li1/plp/imperative1/parser/Imp1Parser.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/Atribuicao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions1/excecao/ErroTipoException.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions1/util/ToStringProvider.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/Contexto.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/Programa.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/Expressao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/Read.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions1/util/Tipo.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions1/util/TipoPrimitivo.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ValorConcreto.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/target/generated-sources/javacc/li1/plp/imperative1/parser/Token.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/memory/ErroTipoEntradaException.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/IdentificadorJaDeclaradoException.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/target/generated-sources/javacc/li1/plp/imperative1/parser/Imp1ParserConstants.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/Write.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpLength.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpNot.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/SequenciaComando.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/AmbienteCompilacao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/Id.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/ContextoExecucao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpBinaria.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/declaration/DecVariavel.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/declaration/DeclaracaoComposta.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/Ambiente.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpMenos.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpDeclaracao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/memory/ContextoCompilacaoImperativa.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/memory/EntradaVaziaException.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/target/generated-sources/javacc/li1/plp/imperative1/parser/JavaCharStream.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ValorString.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/IO.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/declaration/Declaracao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/ComandoDeclaracao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpSub.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/command/Comando.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpEquals.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/Valor.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/memory/AmbienteExecucaoImperativa.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/memory/ListaValor.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/imperative1/util/Lista.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/AmbienteExecucao.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpAnd.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/expression/ExpSoma.java
+/Users/humbertotavora/Documents/UFPE/Mestrado/Disciplinas/Paradigmas de Linguagem de Programação/null_safety_OO_increment/Imperativa1/src/li1/plp/expressions2/memory/StackHandler.java

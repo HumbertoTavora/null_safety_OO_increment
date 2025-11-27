@@ -8,13 +8,10 @@ import loo2.plp.orientadaObjetos1.util.TipoClasse;
 
 /**
  * Classe que representa um tipo nullable, ou seja, um tipo que pode ser null.
- * Apenas tipos de classe podem ser nullable (não tipos primitivos).
+ * Como Augusto explicou na apresentação parcial, apenas tipos de classe podem ser nullable (não tipos primitivos).
  */
 public class TipoNullable implements Tipo {
     
-    /**
-     * O tipo base que pode ser null.
-     */
     private TipoClasse tipoBase;
     
     /**
@@ -44,7 +41,6 @@ public class TipoNullable implements Tipo {
             TipoNullable outro = (TipoNullable) obj;
             return tipoBase.equals(outro.tipoBase);
         }
-        // Um tipo nullable é compatível com seu tipo base ou com null
         if (obj instanceof TipoClasse) {
             TipoClasse outro = (TipoClasse) obj;
             return tipoBase.equals(outro) || outro.equals(TipoClasse.TIPO_NULL);

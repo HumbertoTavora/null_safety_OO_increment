@@ -19,6 +19,7 @@ import loo1.plp.orientadaObjetos1.memoria.*;
 import loo1.plp.orientadaObjetos1.excecao.declaracao.*;
 import loo1.plp.orientadaObjetos1.excecao.execucao.*;
 import loo1.plp.orientadaObjetos1.memoria.colecao.*;
+import loo1.plp.orientadaObjetos1.comando.IO;
 
 /**
  * Parser para a Linguagem de Programa��o Orientada a Objetos

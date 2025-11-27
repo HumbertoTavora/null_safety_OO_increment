@@ -11,6 +11,8 @@ import li2.plp.imperative2.command.*;
 import li2.plp.imperative2.declaration.*;
 import li2.plp.imperative2.memory.*;
 import java.util.*;
+import li2.plp.imperative1.command.IO;
+
 
 public class Imp2Parser implements Imp2ParserConstants {
 
@@ -1038,24 +1040,6 @@ public class Imp2Parser implements Imp2ParserConstants {
     finally { jj_save(13, xla); }
   }
 
-  static private boolean jj_3R_86() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_87()) {
-    jj_scanpos = xsp;
-    if (jj_3R_88()) {
-    jj_scanpos = xsp;
-    if (jj_3R_89()) return true;
-    }
-    }
-    return false;
-  }
-
-  static private boolean jj_3R_26() {
-    if (jj_scan_token(COMAND_SKIP)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_52() {
     if (jj_3R_72()) return true;
     if (jj_scan_token(RPAREN)) return true;
@@ -1779,6 +1763,24 @@ public class Imp2Parser implements Imp2ParserConstants {
 
   static private boolean jj_3R_87() {
     if (jj_scan_token(INT)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_86() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_87()) {
+    jj_scanpos = xsp;
+    if (jj_3R_88()) {
+    jj_scanpos = xsp;
+    if (jj_3R_89()) return true;
+    }
+    }
+    return false;
+  }
+
+  static private boolean jj_3R_26() {
+    if (jj_scan_token(COMAND_SKIP)) return true;
     return false;
   }
 

@@ -7,6 +7,7 @@ import li1.plp.imperative1.declaration.*;
 import li1.plp.imperative1.memory.*;
 import li1.plp.imperative1.*;
 import java.util.*;
+import li1.plp.imperative1.command.IO;
 
 /** Token Manager. */
 public class Imp1ParserTokenManager implements Imp1ParserConstants

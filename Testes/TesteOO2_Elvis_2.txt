@@ -1,0 +1,23 @@
+{
+	classe Eletrodomestico{
+		boolean ligado = false,
+		int voltagem = 220;
+		
+		Eletrodomestico(boolean ligado, int voltagem){
+			this.ligado := ligado;
+			this.voltagem := voltagem
+		},
+		proc imprimeEstado(){
+			write("Ligado: " ++ this.ligado);
+			write("Voltagem: " ++ this.voltagem)
+		}		
+	};
+	{
+		Eletrodomestico? tv_quarto = null;
+		Eletrodomestico? tv_sala = null;
+		Eletrodomestico tv_cozinha := new Eletrodomestico(true,110);
+		tv_sala := tv_quarto ?: tv_cozinha;
+		tv_sala.imprimeEstado()
+	}
+}
+

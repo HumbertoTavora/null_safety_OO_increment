@@ -10,6 +10,7 @@ import li2.plp.imperative2.command.*;
 import li2.plp.imperative2.declaration.*;
 import li2.plp.imperative2.memory.*;
 import java.util.*;
+import li2.plp.imperative1.command.IO;
 
 /** Token Manager. */
 public class Imp2ParserTokenManager implements Imp2ParserConstants

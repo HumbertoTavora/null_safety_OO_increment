@@ -6,22 +6,17 @@
 		Eletrodomestico(boolean ligado, int voltagem){
 			this.ligado := ligado;
 			this.voltagem := voltagem
-		},			
-		proc ligar(){
-			this.ligado := true
-		},
-		proc desligar(){
-			this.ligado := false
 		},
 		proc imprimeEstado(){
 			write("Ligado: " ++ this.ligado);
 			write("Voltagem: " ++ this.voltagem)
 		}			
-	};	
+	};
 	{
-		Eletrodomestico eletro := new Eletrodomestico(false,110);
-		eletro.imprimeEstado();
-		eletro.ligar();
-		eletro.imprimeEstado()
+		Eletrodomestico? tv := new Eletrodomestico(false,110);
+	
+		tv.imprimeEstado()
+		
 	}
 }
+

@@ -41,25 +41,21 @@ public class ChamadaMetodoSafeCall extends ChamadaMetodoOO2 {
                ClasseNaoDeclaradaException, ClasseJaDeclaradaException, EntradaInvalidaException {
         
         Valor v = expressao.avaliar(ambiente);
-        // Safe call: if the expression evaluates to null, do nothing
         if (v instanceof ValorNull) {
             return ambiente;
         }
         
-        // Otherwise, proceed with normal method call
         return super.executar(ambiente);
     }
 
     @Override
     public boolean checaTipo(AmbienteCompilacaoOO1 ambiente)
         throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException, ClasseNaoDeclaradaException {
-        // Safe call allows null targets - if target is null, the call is valid (does nothing)
         Tipo tipoClasse = expressao.getTipo(ambiente);
         if (tipoClasse.equals(TipoClasse.TIPO_NULL)) {
             return true;
         }
         
-        // Otherwise, check type normally
         return super.checaTipo(ambiente);
     }
 }
